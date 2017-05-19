@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f1f1f1"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/color_ffffff"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="银行卡卡号："
+            android:textColor="@color/color_2a2a2a"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/et_credit_number"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="@string/hint_please_your_card_number"
+            android:inputType="number"
+            android:maxLength="20"
+            android:singleLine="true"
+            android:textColor="@color/color_2a2a2a"
+            android:textColorHint="@color/color_999999"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_submit"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_margin="25dp"
+        android:background="@drawable/selector_3ec179_803ec179"
+        android:enabled="false"
+        android:text="提交"
+        android:textColor="@color/color_ffffff"
+        android:textSize="14sp" />
+</LinearLayout>
