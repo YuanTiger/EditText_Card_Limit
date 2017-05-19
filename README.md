@@ -1,8 +1,3 @@
----
-title: EditText每4位自动添加空格
-date: 2017-05-19 16:32:31
-tags:
----
 ## 基本功能 ##
 刚拿到需求，很简单的一个功能，二话不说，很快就出来了：
 ![](http://7xvzby.com1.z0.glb.clouddn.com/et_1.gif)
