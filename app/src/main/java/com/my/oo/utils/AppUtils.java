@@ -1,6 +1,7 @@
 package com.my.oo.utils;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 /**
  * Author：mengyuan
@@ -32,12 +33,11 @@ public class AppUtils {
         for (int i = 1; i <= content.length(); i++) {
             if (i % 4 == 0 && i != content.length()) {
                 newString.append(content.charAt(i - 1) + " ");
-                System.out.println("mengyuan::" + newString.toString());
             } else {
                 newString.append(content.charAt(i - 1));
-                System.out.println("mengyuan::" + newString.toString());
             }
         }
+//        Log.i("mengyuan", "添加空格后："+newString.toString());
         return newString.toString();
     }
 }
