@@ -118,19 +118,6 @@ public class MainActivity extends AppCompatActivity {
                         selectPosition = start + count;
                     }
                 }
-
-
-//                //如果最新的长度 < 上次的长度，代11表进行了删除
-//                if (editTextContent.length() <= lastString.length()) {
-//                    //当进行删除操作时，保存删除下标
-//                    selectPosition = start+count;
-//                } else {
-//                    //不是删除操作，就是添加操作，添加操作需要判断是在哪里进行添加的
-//                    //所以获取光标当前位置
-//                    //当光标位置为4的倍数时，注意+1保证光标在添加的空格后方
-//                    selectPosition = et_credit_number.getSelectionStart() % 4 == 0 ? et_credit_number.getSelectionStart() + 1 : et_credit_number.getSelectionStart();
-//                }
-
             }
 
 
