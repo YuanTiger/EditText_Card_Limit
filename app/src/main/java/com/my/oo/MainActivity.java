@@ -28,10 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private String lastString;
     //光标的位置
     private int selectPosition;
-    //判断是否是用户改变输入框的内容
-    //主要作用是因为我们在添加空格完成后，调用et.setText(string)时，仍会触发输入框的改变监听，但此次明显是不需要的。
-    //默认是true
-    private boolean isUserChange = true;
 
 
     @Override
@@ -77,8 +73,12 @@ public class MainActivity extends AppCompatActivity {
              */
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!isUserChange) {
-                    isUserChange = true;
+
+
+
+                //因为重新排序之后setText的存在
+                //会导致输入框的内容从0开始输入，这里是为了避免这种情况产生一系列问题
+                if (start == 0 && count > 0) {
                     return;
                 }
                 Log.i("mengyuan", "onTextChanged：s:" + s);
@@ -88,11 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("mengyuan", "onTextChanged：getSelectionStart:" + et_credit_number.getSelectionStart());
                 Log.i("mengyuan", "onTextChanged：getSelectionEnd:" + et_credit_number.getSelectionEnd());
 
-                //因为重新排序之后setText的存在
-                //会导致输入框的内容从0开始输入，这里是为了避免这种情况产生一系列问题
-                if (start == 0 && count > 0) {
-                    return;
-                }
+
                 String textTrim = EditTextUtils.getTextTrim(et_credit_number);
                 if (TextUtils.isEmpty(textTrim)) {
                     return;
@@ -110,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
                         StringBuffer stringBuffer = new StringBuffer(textTrim);
                         stringBuffer.deleteCharAt(start - 1);
                         selectPosition = start - 1;
-                        isUserChange = false;
                         et_credit_number.setText(stringBuffer.toString());
                     }
                 } else {
@@ -154,8 +149,6 @@ public class MainActivity extends AppCompatActivity {
                 //如果有改变，则重新填充
                 //防止EditText无限setText()产生死循环
                 if (!etContent.equals(newContent)) {
-                    //即将改变输入框中的内容，此次改变不是用户触发，所以将isUserChange置为false
-                    isUserChange = false;
                     et_credit_number.setText(newContent);
                     //保证光标的位置
                     et_credit_number.setSelection(selectPosition > newContent.length() ? newContent.length() : selectPosition);
