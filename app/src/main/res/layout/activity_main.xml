@@ -24,7 +24,7 @@
             android:textColor="@color/color_2a2a2a"
             android:textSize="14sp" />
 
-        <EditText
+        <com.my.oo.view.SpaceEditText
             android:id="@+id/et_credit_number"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -32,7 +32,6 @@
             android:background="@null"
             android:hint="@string/hint_please_your_card_number"
             android:inputType="number"
-            android:maxLength="19"
             android:singleLine="true"
             android:textColor="@color/color_2a2a2a"
             android:textColorHint="@color/color_999999"

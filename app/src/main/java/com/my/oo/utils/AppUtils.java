@@ -13,7 +13,7 @@ import android.util.Log;
 public class AppUtils {
 
     /**
-     * 根据信用卡格式添加空格，每4位添加一个空格
+     * 每4位添加一个空格
      *
      * @param content
      * @return
@@ -25,9 +25,6 @@ public class AppUtils {
         content = content.replaceAll(" ", "");
         if (TextUtils.isEmpty(content)) {
             return "";
-        }
-        if (content.length() > 16) {
-            content = content.substring(0, 16);
         }
         StringBuilder newString = new StringBuilder();
         for (int i = 1; i <= content.length(); i++) {

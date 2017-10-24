@@ -13,10 +13,11 @@ public class MatcheUtils {
 
 
     public static boolean isCreditNumber(String idCard) {
-        return !TextUtils.isEmpty(idCard) && idCard.matches("^[0-9]{16}$");
+        return !TextUtils.isEmpty(idCard) && idCard.matches("^\\d{16}$");
     }
+
     public static boolean isBankNumber(String bankNumber) {
-        return !TextUtils.isEmpty(bankNumber) && bankNumber.matches("^(\\d{16}|\\d{19})$");
+        return !TextUtils.isEmpty(bankNumber) && (bankNumber.matches("^\\d{16}$") || bankNumber.matches("^\\d{19}$"));
     }
 
 
