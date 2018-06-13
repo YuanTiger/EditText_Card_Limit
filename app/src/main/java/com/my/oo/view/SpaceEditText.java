@@ -7,11 +7,9 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.widget.EditText;
 
 import com.my.oo.utils.AppUtils;
 import com.my.oo.utils.EditTextUtils;
-import com.my.oo.utils.MatcheUtils;
 
 /**
  * Author：mengyuan
@@ -32,24 +30,25 @@ public class SpaceEditText extends AppCompatEditText {
     private TextChangeListener listener;
 
 
+
     public SpaceEditText(Context context) {
         super(context);
-        initView(context);
+        initView();
     }
 
     public SpaceEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
-        initView(context);
+        initView();
 
     }
 
     public SpaceEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        initView(context);
+        initView();
 
     }
 
-    private void initView(Context context) {
+    private void initView() {
         addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -69,7 +68,12 @@ public class SpaceEditText extends AppCompatEditText {
 
                 //因为重新排序之后setText的存在
                 //会导致输入框的内容从0开始输入，这里是为了避免这种情况产生一系列问题
-                if (start == 0 && count > 1) {
+                if (start == 0 && count > 1 && SpaceEditText.this.getSelectionStart() == 0) {
+                    return;
+                }
+
+                String textTrim = EditTextUtils.getTextTrim(SpaceEditText.this);
+                if (TextUtils.isEmpty(textTrim)) {
                     return;
                 }
                 Log.i("mengyuan", "onTextChanged：s:" + s);
@@ -78,14 +82,10 @@ public class SpaceEditText extends AppCompatEditText {
                 Log.i("mengyuan", "onTextChanged：count:" + count);
                 Log.i("mengyuan", "onTextChanged：getSelectionStart:" + SpaceEditText.this.getSelectionStart());
                 Log.i("mengyuan", "onTextChanged：getSelectionEnd:" + SpaceEditText.this.getSelectionEnd());
+                Log.i("mengyuan", "------------------------------------------------------------------------------------------");
 
-
-                String textTrim = EditTextUtils.getTextTrim(SpaceEditText.this);
-                if (TextUtils.isEmpty(textTrim)) {
-                    return;
-                }
-                //如果before > 0,代表此次操作是删除操作
-                if (before > 0) {
+                //如果 before >0 && count == 0,代表此次操作是删除操作
+                if (before >0 && count == 0) {
                     selectPosition = start;
                     if (TextUtils.isEmpty(lastString)) {
                         return;
@@ -94,18 +94,15 @@ public class SpaceEditText extends AppCompatEditText {
                     //如果一致，代表本次操作删除的是空格
                     if (textTrim.equals(lastString.replaceAll(" ", ""))) {
                         //帮助用户删除该删除的字符，而不是空格
-                        StringBuffer stringBuffer = new StringBuffer(lastString);
-                        stringBuffer.deleteCharAt(start - 1);
+                        StringBuilder stringBuilder = new StringBuilder(lastString);
+                        stringBuilder.deleteCharAt(start - 1);
                         selectPosition = start - 1;
-                        SpaceEditText.this.setText(stringBuffer.toString());
+                        SpaceEditText.this.setText(stringBuilder.toString());
                     }
                 } else {
                     //此处代表是添加操作
                     //当光标位于空格之前，添加字符时，需要让光标跳过空格，再按照之前的逻辑计算光标位置
-                    //第一次空格出现的位置是4，第二次是4+1(空格)+4=9，第三次是4+1(空格)+4+1(空格)+4=14
-                    //如果按照数学公式，则当start = 5n-1时，需要让光标跳过空格
-                    //也就是当stat%5 == 4时
-                    if (start % 5 == 4) {
+                    if ((start+count) % 5 == 0) {
                         selectPosition = start + count + 1;
                     } else {
                         selectPosition = start + count;
@@ -125,7 +122,7 @@ public class SpaceEditText extends AppCompatEditText {
                     return;
                 }
                 //重新拼接字符串
-                String newContent = AppUtils.addSpeaceByCredit(etContent);
+                String newContent = AppUtils.addSpaceByCredit(etContent);
                 //保存本次字符串数据
                 lastString = newContent;
 

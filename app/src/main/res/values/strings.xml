@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">OODemo</string>
+    <string name="app_name">EditTextDemo</string>
     <string name="hint_please_your_card_number">请输入卡号</string>
 </resources>

@@ -18,7 +18,7 @@ public class AppUtils {
      * @param content
      * @return
      */
-    public static String addSpeaceByCredit(String content) {
+    public static String addSpaceByCredit(String content) {
         if (TextUtils.isEmpty(content)) {
             return "";
         }

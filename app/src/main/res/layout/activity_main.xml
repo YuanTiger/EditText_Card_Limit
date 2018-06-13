@@ -31,7 +31,6 @@
             android:layout_weight="1"
             android:background="@null"
             android:hint="@string/hint_please_your_card_number"
-            android:inputType="number"
             android:singleLine="true"
             android:textColor="@color/color_2a2a2a"
             android:textColorHint="@color/color_999999"
